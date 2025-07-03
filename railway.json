@@ -6,7 +6,8 @@
   "deploy": {
     "runtime": "V2",
     "numReplicas": 1,
-    "startCommand": "php artisan serve --host=0.0.0.0 --port=$PORT",
+    "startCommand": "cd projekuasweb2 && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT
+",
     "sleepApplication": false,
     "multiRegionConfig": {
       "asia-southeast1-eqsg3a": {
