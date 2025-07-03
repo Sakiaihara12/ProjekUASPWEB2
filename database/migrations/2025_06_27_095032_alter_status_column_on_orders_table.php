@@ -1,51 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-use App\Models\Order;
-use App\Models\OrderItem;
-use App\Models\Cart;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-
-class OrderHistoryController extends Controller
-{
-    // Tampilkan riwayat pesanan user
-    public function index()
+return new class extends Migration {
+    public function up(): void
     {
-        $orders = Order::with('items.menu')
-            ->where('user_id', Auth::id())
-            ->orderByDesc('created_at')
-            ->get();
-
-        return view('orders.history', compact('orders'));
+        Schema::table('orders', function (Blueprint $table) {
+            $table->string('status')->default('pending')->change();
+        });
     }
 
-    // Fitur pesan kembali (copy item dari order ke cart)
-    public function reorder(Order $order)
+    public function down(): void
     {
-        if ($order->user_id !== Auth::id()) {
-            abort(403);
-        }
-
-        foreach ($order->items as $item) {
-            $cart = Cart::where('user_id', Auth::id())
-                ->where('menu_id', $item->menu_id)
-                ->where('status', 'pending')
-                ->first();
-
-            if ($cart) {
-                $cart->increment('quantity', $item->quantity);
-            } else {
-                Cart::create([
-                    'user_id' => Auth::id(),
-                    'menu_id' => $item->menu_id,
-                    'quantity' => $item->quantity,
-                    'status' => 'pending',
-                ]);
-            }
-        }
-
-        return redirect()->route('cart.index')->with('success', 'Menu berhasil ditambahkan kembali ke keranjang!');
+        Schema::table('orders', function (Blueprint $table) {
+            // Revert back if needed
+        });
     }
-}
+};
