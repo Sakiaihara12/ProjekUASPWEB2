@@ -40,7 +40,7 @@
         <div class="card border-warning shadow-lg px-4 py-5 animate-fade-in text-center" style="max-width: 600px; width: 100%; backdrop-filter: blur(6px);">
             <div class="admin-icon">🍽️</div>
             <h1 class="mt-4 text-warning fw-bold">Selamat Datang di Dashboard Admin</h1>
-            <p class="text-secondary fs-5 mt-2 fw-semibold">{{ Auth::user()->name }}</p>
+            <p class="text-secondary fs-5 mt-2 fw-semibold">{{ Auth::guard('admin')->user()->name }}</p>
             <p class="text-muted fst-italic">Semoga harimu menyenangkan ☀️</p>
 
             <div class="mt-4 text-secondary small">
