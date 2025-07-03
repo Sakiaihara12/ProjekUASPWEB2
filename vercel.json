@@ -8,15 +8,24 @@
   },
   "routes": [
     {
+      "src": "/build/(.*)",
+      "dest": "/build/$1"
+    },
+    {
+      "src": "/storage/(.*)",
+      "dest": "/storage/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "/api/index.php"
     }
   ],
   "env": {
     "APP_ENV": "production",
-    "APP_DEBUG": "true",
-    "APP_URL": "",
+    "APP_DEBUG": "false",
+    "APP_URL": "https://pesenin-ok0tatlvu-sakiaihara12s-projects.vercel.app",
     "APP_KEY": "base64:uSPuW+LbCVSXJUgLyM7JMxWlavKhrnqZZS4x2UU3T+4=",
+
     "DB_CONNECTION": "mysql",
     "DB_HOST": "qdnc3.h.filess.io",
     "DB_PORT": "61002",
