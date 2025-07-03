@@ -1,7 +1,7 @@
 {
   "version": 2,
   "functions": {
-    "public/index.php": {
+    "api/index.php": {
       "runtime": "vercel-php@0.6.0"
     }
   },
@@ -9,13 +9,13 @@
     { "handle": "filesystem" },
     {
       "src": "/(.*)",
-      "dest": "/public/index.php"
+      "dest": "/api/index.php"
     }
   ],
   "env": {
     "APP_ENV": "production",
     "APP_DEBUG": "false",
-    "APP_URL": "https://pesenin-ok0tatlvu-sakiaihara12s-projects.vercel.app",
+    "APP_URL": "https://pesenin.vercel.app",
     "APP_KEY": "base64:uSPuW+LbCVSXJUgLyM7JMxWlavKhrnqZZS4x2UU3T+4=",
 
     "DB_CONNECTION": "mysql",
