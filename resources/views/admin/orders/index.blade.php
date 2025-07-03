@@ -7,6 +7,8 @@
 </head>
 <body class="bg-light text-dark">
 
+    @include('layouts.navbar') {{-- Tambahkan navbar admin --}}
+
     <div class="container my-5">
         <h2 class="mb-4 text-warning">📦 Pesanan Masuk</h2>
 

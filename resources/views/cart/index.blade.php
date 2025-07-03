@@ -12,6 +12,8 @@
 </head>
 <body class="py-5">
 
+    @include('layouts.navbar') {{-- Navbar user --}}
+
     <div class="container">
         <h2 class="text-center text-warning fw-bold mb-4">🛒 Keranjang Saya</h2>
 

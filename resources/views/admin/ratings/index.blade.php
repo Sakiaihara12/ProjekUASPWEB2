@@ -11,6 +11,8 @@
 </head>
 <body class="bg-light text-dark">
 
+    @include('layouts.navbar') {{-- Navbar admin --}}
+
     <div class="container py-5">
         <h2 class="mb-4 text-warning">⭐ Daftar Rating Menu</h2>
 

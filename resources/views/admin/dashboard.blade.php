@@ -34,6 +34,8 @@
 </head>
 <body>
 
+    @include('layouts.navbar') {{-- Navbar admin --}}
+
     <div class="container d-flex justify-content-center align-items-center py-5">
         <div class="card border-warning shadow-lg px-4 py-5 animate-fade-in text-center" style="max-width: 600px; width: 100%; backdrop-filter: blur(6px);">
             <div class="admin-icon">🍽️</div>
