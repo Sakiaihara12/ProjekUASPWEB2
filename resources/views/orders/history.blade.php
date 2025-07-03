@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-orange-400 leading-tight">
             Riwayat Pesanan
         </h2>
     </x-slot>
