@@ -71,19 +71,16 @@ class MenuController extends Controller
             'image'       => 'nullable|image|max:2048',
         ]);
 
+        $data = $request->only(['name', 'description', 'price', 'stock']);
+
         if ($request->hasFile('image')) {
             if ($menu->image) {
                 Storage::disk('public')->delete($menu->image);
             }
-            $menu->image = $request->file('image')->store('menus', 'public');
+            $data['image'] = $request->file('image')->store('menus', 'public');
         }
 
-        $menu->update([
-            'name'        => $request->name,
-            'description' => $request->description,
-            'price'       => $request->price,
-            'stock'       => $request->stock,
-        ]);
+        $menu->update($data);
 
         return redirect()->route('admin.menus.index')->with('success', 'Menu berhasil diupdate.');
     }
