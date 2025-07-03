@@ -6,24 +6,7 @@
 <nav x-data="{ open: false }" class="bg-white dark:bg-blue-800 border-b border-gray-100 dark:border-gray-700">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    @if ($admin)
-                        <a href="{{ route('admin.dashboard') }}">
-                            <svg width="30" height="30" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.6668 0.333374H9.22236V4.77784H4.77796V9.22224H0.333496V13.6667H13.6668V0.333374Z" fill="#1C0D0F"/>
-                            </svg>
-                        </a>
-                    @else
-                        <a href="{{ route('dashboard') }}">
-                            <svg width="30" height="30" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.6668 0.333374H9.22236V4.77784H4.77796V9.22224H0.333496V13.6667H13.6668V0.333374Z" fill="#1C0D0F"/>
-                            </svg>
-                        </a>
-                    @endif
-                </div>
-
+            <div class="flex items-center">
                 <!-- Navigation Links -->
                 @if ($admin)
                     {{-- ✅ NAVBAR UNTUK ADMIN --}}
@@ -38,9 +21,8 @@
                             Pesanan Masuk
                         </x-nav-link>
                         <x-nav-link href="{{ route('admin.ratings.index') }}" :active="request()->routeIs('admin.ratings.*')">
-    Rating
-</x-nav-link>
-
+                            Rating
+                        </x-nav-link>
                     </div>
                 @elseif ($user)
                     {{-- ✅ NAVBAR UNTUK USER --}}
@@ -51,9 +33,9 @@
                         <x-nav-link href="{{ route('cart.index') }}" :active="request()->routeIs('cart.index')">
                             🛒 Keranjang
                         </x-nav-link>
-                                <x-nav-link href="{{ route('orders.history') }}" :active="request()->routeIs('orders.history')">
-            📜 Riwayat Pesanan
-        </x-nav-link>
+                        <x-nav-link href="{{ route('orders.history') }}" :active="request()->routeIs('orders.history')">
+                            📜 Riwayat Pesanan
+                        </x-nav-link>
                     </div>
                 @endif
             </div>

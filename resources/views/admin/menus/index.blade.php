@@ -1,53 +1,63 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="text-2xl font-bold text-orange-600">
-            Daftar Menu
-        </h2>
-    </x-slot>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Daftar Menu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light text-dark">
 
-    <div class="container mx-auto px-4 py-8">
-        <div class="flex justify-between items-center mb-6">
-            <a href="{{ route('admin.menus.create') }}" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg">
-                + Tambah Menu
-            </a>
-        </div>
+    <div class="container my-5">
+        <h2 class="mb-4 text-warning">📋 Daftar Menu</h2>
 
         @if (session('success'))
-            <div class="bg-green-100 text-green-700 p-3 rounded mb-4">
+            <div class="alert alert-success">
                 {{ session('success') }}
             </div>
         @endif
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="mb-4 text-end">
+            <a href="{{ route('admin.menus.create') }}" class="btn btn-warning text-white">
+                + Tambah Menu
+            </a>
+        </div>
+
+        <div class="row g-4">
             @forelse ($menus as $menu)
-                <div class="bg-white rounded-xl shadow p-4">
-                    @if ($menu->image)
-                        <img src="{{ asset('storage/' . $menu->image) }}" class="rounded-md w-full h-48 object-cover mb-3">
-                    @else
-                        <div class="bg-gray-100 text-gray-500 text-center py-16 rounded mb-3">
-                            Tidak ada gambar
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        @if ($menu->image)
+                            <img src="{{ asset('storage/' . $menu->image) }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="gambar menu">
+                        @else
+                            <div class="card-img-top bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 200px;">
+                                Tidak ada gambar
+                            </div>
+                        @endif
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">{{ $menu->name }}</h5>
+                            <p class="card-text">{{ $menu->description }}</p>
+                            <p class="fw-semibold text-warning">Rp {{ number_format($menu->price, 0, ',', '.') }}</p>
+                            <p class="text-muted small">Stok: {{ $menu->stock }}</p>
+
+                            <div class="d-flex justify-content-between mt-3">
+                                <a href="{{ route('admin.menus.edit', $menu->id) }}" class="text-decoration-none text-primary small">
+                                    ✏️ Edit
+                                </a>
+                                <form action="{{ route('admin.menus.destroy', $menu->id) }}" method="POST" onsubmit="return confirm('Yakin ingin hapus menu ini?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-link btn-sm text-danger p-0">🗑️ Hapus</button>
+                                </form>
+                            </div>
                         </div>
-                    @endif
-
-                    <h2 class="text-xl font-bold text-blue-600">{{ $menu->name }}</h2>
-                    <p class="text-gray-600">{{ $menu->description }}</p>
-                    <p class="mt-2 font-semibold text-orange-500">Rp {{ number_format($menu->price, 0, ',', '.') }}</p>
-                    <p class="text-sm text-gray-500">Stok: {{ $menu->stock }}</p>
-
-                    <div class="flex justify-between mt-4">
-                        <a href="{{ route('admin.menus.edit', $menu->id) }}" class="text-blue-500 hover:underline text-sm">
-                            ✏️ Edit
-                        </a>
-                        <form action="{{ route('admin.menus.destroy', $menu->id) }}" method="POST" onsubmit="return confirm('Yakin ingin hapus menu ini?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-red-500 hover:underline text-sm">🗑️ Hapus</button>
-                        </form>
                     </div>
                 </div>
             @empty
-                <p class="text-gray-600">Belum ada menu.</p>
+                <p class="text-muted">Belum ada menu.</p>
             @endforelse
         </div>
     </div>
-</x-app-layout>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

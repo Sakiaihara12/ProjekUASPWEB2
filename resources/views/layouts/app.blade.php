@@ -7,31 +7,37 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
+    <!-- Bootstrap CSS & Figtree Font -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-    <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        body {
+            font-family: 'Figtree', sans-serif;
+            background-color: #f8fafc;
+        }
+    </style>
 </head>
-<body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100 dark:bg-orange-200">
-        {{-- ✅ Navbar --}}
-        @include('layouts.navigation')
+<body>
+    {{-- ✅ Navbar --}}
+    @include('layouts.nav-bootstrap')
 
-        {{-- ✅ Header --}}
-        @isset($header)
-            <header class="bg-white dark:bg-blue-800 shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
-        @endisset
+    {{-- ✅ Header --}}
+    @hasSection('header')
+        <header class="bg-white border-bottom shadow-sm mb-4">
+            <div class="container py-3">
+                <h2 class="h4 fw-bold text-primary">
+                    @yield('header')
+                </h2>
+            </div>
+        </header>
+    @endif
 
-        {{-- ✅ Main Content --}}
-        <main>
-            {{ $slot }}
-        </main>
-    </div>
+    {{-- ✅ Main Content --}}
+    <main class="container pb-5">
+        @yield('content')
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

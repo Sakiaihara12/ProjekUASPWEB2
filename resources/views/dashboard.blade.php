@@ -1,49 +1,56 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-orange-400 leading-tight">
-            {{ __('Top Menu') }}
-        </h2>
-    </x-slot>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Top Menu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
 
-    <div class="py-12 bg-orange-100">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+<div class="container py-5">
+    <h2 class="text-center text-orange-600 fw-bold mb-4" style="color: #d35400;">Top Menu</h2>
 
-            {{-- ✅ Notifikasi Berhasil --}}
-            @if (session('success'))
-                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
-                    {{ session('success') }}
-                </div>
-            @endif
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                @forelse ($menus as $menu)
-                    <div class="bg-white rounded-lg shadow overflow-hidden">
-                        @if ($menu->image)
-                            <img src="{{ asset('storage/' . $menu->image) }}" alt="{{ $menu->name }}" class="w-full h-48 object-cover">
-                        @else
-                            <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500">
-                                Tidak ada gambar
-                            </div>
-                        @endif
-
-                        <div class="p-4">
-                            <h3 class="text-lg font-semibold text-orange-600">{{ $menu->name }}</h3>
-                            <p class="text-sm text-gray-600 mb-2">{{ $menu->description }}</p>
-                            <p class="font-semibold text-blue-600">Rp {{ number_format($menu->price, 0, ',', '.') }}</p>
-
-                            <form action="{{ route('cart.add', $menu->id) }}" method="POST" class="mt-3">
-                                @csrf
-                                <input type="number" name="quantity" value="1" min="1" class="w-full border px-2 py-1 rounded mb-2" />
-                                <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded">
-                                    🛒 Tambah ke Keranjang
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                @empty
-                    <p class="text-white">Belum ada menu tersedia.</p>
-                @endforelse
-            </div>
+    {{-- ✅ Notifikasi Berhasil --}}
+    @if (session('success'))
+        <div class="alert alert-success text-center">
+            {{ session('success') }}
         </div>
+    @endif
+
+    <div class="row g-4">
+        @forelse ($menus as $menu)
+            <div class="col-12 col-sm-6 col-md-4">
+                <div class="card h-100 shadow-sm">
+                    @if ($menu->image)
+                        <img src="{{ asset('storage/' . $menu->image) }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ $menu->name }}">
+                    @else
+                        <div class="bg-light d-flex align-items-center justify-content-center" style="height: 200px; color: #999;">
+                            Tidak ada gambar
+                        </div>
+                    @endif
+
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-orange-600" style="color: #e67e22;">{{ $menu->name }}</h5>
+                        <p class="card-text text-muted small">{{ $menu->description }}</p>
+                        <p class="fw-bold text-primary">Rp {{ number_format($menu->price, 0, ',', '.') }}</p>
+
+                        <form action="{{ route('cart.add', $menu->id) }}" method="POST" class="mt-auto">
+                            @csrf
+                            <input type="number" name="quantity" value="1" min="1" class="form-control mb-2" />
+                            <button type="submit" class="btn btn-warning w-100 text-white">
+                                🛒 Tambah ke Keranjang
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @empty
+            <div class="col-12">
+                <p class="text-center text-muted">Belum ada menu tersedia.</p>
+            </div>
+        @endforelse
     </div>
-</x-app-layout>
+</div>
+
+</body>
+</html>

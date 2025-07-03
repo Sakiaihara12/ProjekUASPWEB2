@@ -6,13 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Selamat Datang di Pesen.in</title>
 
-    <!-- Fonts & Tailwind -->
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font -->
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
         body {
             font-family: 'Figtree', sans-serif;
+            background: linear-gradient(to bottom right, #fff7ed, #fef3c7);
+            min-height: 100vh;
+        }
+
+        .fade-in {
+            animation: fade-in 0.6s ease-out;
         }
 
         @keyframes fade-in {
@@ -26,43 +34,36 @@
                 transform: translateY(0);
             }
         }
-
-        .animate-fade-in {
-            animation: fade-in 0.6s ease-out;
-        }
     </style>
 </head>
 
-<body class="bg-gradient-to-br from-orange-50 to-yellow-100 text-gray-800 min-h-screen flex items-center justify-center px-6 py-12">
+<body class="d-flex align-items-center justify-content-center px-3 py-5">
 
-    <div class="bg-white/90 backdrop-blur-md rounded-3xl shadow-xl p-10 text-center max-w-xl w-full animate-fade-in border border-orange-100">
-        <div class="text-6xl mb-4">🍽️</div>
+    <div class="bg-white border border-warning-subtle shadow-lg rounded-4 p-5 text-center w-100 fade-in" style="max-width: 500px;">
+        <div class="fs-1 mb-3">🍽️</div>
 
-        <h1 class="text-4xl font-extrabold mb-2">
-            <span class="text-orange-600">Selamat Datang di</span>
-            <span class="text-blue-600">Pesen.in</span>
+        <h1 class="fw-bold mb-2">
+            <span class="text-warning">Selamat Datang di</span>
+            <span class="text-primary">Pesen.in</span>
         </h1>
 
-        <p class="text-lg text-gray-600 mb-8">
+        <p class="text-muted mb-4">
             Aplikasi pemesanan makanan cepat, mudah, dan praktis!
         </p>
 
         <!-- Tombol Login & Register -->
-        <div class="flex flex-col sm:flex-row justify-center gap-4 mb-4">
-            <a href="{{ route('login') }}"
-               class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg shadow transition duration-200">
+        <div class="d-grid gap-2 d-sm-flex justify-content-center mb-3">
+            <a href="{{ route('login') }}" class="btn btn-warning text-white px-4">
                 Login
             </a>
-            <a href="{{ route('register') }}"
-               class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg shadow transition duration-200">
+            <a href="{{ route('register') }}" class="btn btn-primary text-white px-4">
                 Register
             </a>
         </div>
 
         <!-- Tombol Login Admin -->
-        <div class="mt-2">
-            <a href="{{ route('admin.login') }}"
-               class="inline-block bg-gray-800 hover:bg-gray-900 text-white px-6 py-2 rounded-lg shadow transition duration-200 text-sm">
+        <div>
+            <a href="{{ route('admin.login') }}" class="btn btn-dark btn-sm px-4">
                 👨‍💼 Login sebagai Admin
             </a>
         </div>

@@ -1,23 +1,31 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="text-xl font-bold text-gray-800 dark:text-orange-500 leading-tight">
-            Daftar Rating Menu
-        </h2>
-    </x-slot>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Daftar Rating Menu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .star-filled { color: #ffc107; } /* kuning */
+        .star-empty { color: #ddd; }     /* abu */
+    </style>
+</head>
+<body class="bg-light text-dark">
 
-    <div class="py-12 bg-orange-100">
-        <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
-            @forelse ($ratings as $rating)
-                <div class="bg-white p-4 rounded shadow mb-4">
+    <div class="container py-5">
+        <h2 class="mb-4 text-warning">⭐ Daftar Rating Menu</h2>
+
+        @forelse ($ratings as $rating)
+            <div class="card mb-3 shadow-sm">
+                <div class="card-body">
                     <p><strong>Menu:</strong> {{ $rating->menu->name }}</p>
                     <p><strong>User:</strong> {{ $rating->user->name }} ({{ $rating->user->email }})</p>
 
                     <p><strong>Rating:</strong>
                         @for ($i = 1; $i <= 5; $i++)
                             @if ($i <= $rating->rating)
-                                <span class="text-yellow-400">★</span>
+                                <span class="star-filled">★</span>
                             @else
-                                <span class="text-gray-300">☆</span>
+                                <span class="star-empty">☆</span>
                             @endif
                         @endfor
                     </p>
@@ -26,11 +34,14 @@
                         <p><strong>Komentar:</strong> {{ $rating->comment }}</p>
                     @endif
                 </div>
-            @empty
-                <div class="bg-white p-4 rounded shadow text-center text-gray-600">
-                    Belum ada rating yang masuk.
-                </div>
-            @endforelse
-        </div>
+            </div>
+        @empty
+            <div class="alert alert-secondary text-center">
+                Belum ada rating yang masuk.
+            </div>
+        @endforelse
     </div>
-</x-app-layout>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
