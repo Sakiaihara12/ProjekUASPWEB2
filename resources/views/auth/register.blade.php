@@ -82,5 +82,14 @@
                 @enderror
             </div>
 
+            <!-- ✅ Tombol Register -->
             <div class="mb-3 text-end">
-                <
+                <button type="submit" class="btn btn-warning w-100 fw-bold">
+                    Register
+                </button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

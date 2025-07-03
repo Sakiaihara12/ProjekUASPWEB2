@@ -3,77 +3,64 @@
     $admin = Auth::guard('admin')->user();
 @endphp
 
-<nav x-data="{ open: false }" class="bg-white dark:bg-blue-800 border-b border-gray-100 dark:border-gray-700">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex items-center">
-                <!-- Navigation Links -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm mb-4">
+    <div class="container">
+        <a class="navbar-brand fw-bold text-warning" href="{{ url('/') }}">
+            🍽️ Pesen.in
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 @if ($admin)
-                    {{-- ✅ NAVBAR UNTUK ADMIN --}}
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
-                            Dashboard
-                        </x-nav-link>
-                        <x-nav-link href="{{ route('admin.menus.index') }}" :active="request()->routeIs('admin.menus.*')">
-                            Menu
-                        </x-nav-link>
-                        <x-nav-link href="{{ route('admin.orders.index') }}" :active="request()->routeIs('admin.orders.*')">
-                            Pesanan Masuk
-                        </x-nav-link>
-                        <x-nav-link href="{{ route('admin.ratings.index') }}" :active="request()->routeIs('admin.ratings.*')">
-                            Rating
-                        </x-nav-link>
-                    </div>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.menus.*') ? 'active' : '' }}" href="{{ route('admin.menus.index') }}">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}" href="{{ route('admin.orders.index') }}">Pesanan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.ratings.*') ? 'active' : '' }}" href="{{ route('admin.ratings.index') }}">Rating</a>
+                    </li>
                 @elseif ($user)
-                    {{-- ✅ NAVBAR UNTUK USER --}}
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                            Dashboard
-                        </x-nav-link>
-                        <x-nav-link href="{{ route('cart.index') }}" :active="request()->routeIs('cart.index')">
-                            🛒 Keranjang
-                        </x-nav-link>
-                        <x-nav-link href="{{ route('orders.history') }}" :active="request()->routeIs('orders.history')">
-                            📜 Riwayat Pesanan
-                        </x-nav-link>
-                    </div>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('cart.index') ? 'active' : '' }}" href="{{ route('cart.index') }}">🛒 Keranjang</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('orders.history') ? 'active' : '' }}" href="{{ route('orders.history') }}">📜 Riwayat</a>
+                    </li>
                 @endif
-            </div>
+            </ul>
 
-            <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
-                @if ($admin || $user)
-                    <x-dropdown align="right" width="48">
-                        <x-slot name="trigger">
-                            <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                                <div>{{ $admin?->name ?? $user->name }}</div>
-                                <div class="ms-1">
-                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                    </svg>
-                                </div>
-                            </button>
-                        </x-slot>
-
-                        <x-slot name="content">
+            @if ($admin || $user)
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            {{ $admin?->name ?? $user->name }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
                             @if ($user)
-                                <x-dropdown-link href="{{ route('profile.edit') }}">
-                                    {{ __('Profile') }}
-                                </x-dropdown-link>
+                                <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a></li>
                             @endif
-
-                            <!-- Logout -->
-                            <form method="POST" action="{{ $admin ? route('admin.logout') : route('logout') }}">
-                                @csrf
-                                <x-dropdown-link href="{{ $admin ? route('admin.logout') : route('logout') }}"
-                                    onclick="event.preventDefault(); this.closest('form').submit();">
-                                    {{ __('Log Out') }}
-                                </x-dropdown-link>
-                            </form>
-                        </x-slot>
-                    </x-dropdown>
-                @endif
-            </div>
+                            <li>
+                                <form method="POST" action="{{ $admin ? route('admin.logout') : route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item text-danger">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            @endif
         </div>
     </div>
 </nav>
