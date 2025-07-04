@@ -8,6 +8,8 @@
 <body>
     Saki Aihara Kaciw
 
-    <p>Rimuru Tempest
+    <p>Rimuru Tempest</p>
+    <p>Shion</p>
+    <p>Benimaru</p>
 </body>
 </html>
