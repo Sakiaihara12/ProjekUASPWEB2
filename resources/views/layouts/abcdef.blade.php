@@ -11,5 +11,8 @@
     <p>Rimuru Tempest</p>
     <p>Shion</p>
     <p>Benimaru</p>
+    <!-- Additional content can be added here -->
+    <P>Gobta</P>
+    <P>Shuna</P>
 </body>
 </html>
